@@ -1,0 +1,47 @@
+# Word Position 1.0
+
+# Step 1: Import needed modules
+import os
+
+# Step 2: Show the current working directory
+print("Current Working Directory:")
+print(os.getcwd())
+
+# Step 3: Show the contents of the current directory to help the user
+print("\nContents of Current Directory:")
+print(os.listdir())
+
+# Step 4: Ask the user for the file path (e.g., monty_python_sketches/spam_song.txt)
+file_path = input("\nEnter the path to the file you want to search: ")
+
+# Step 5: Ask the user for the word to search for
+search_word = input("Enter the word you want to find: ")
+
+# Step 6: Open the file and read its content
+with open(file_path, "r", encoding="utf-8") as file:
+    content = file.read()
+
+# Step 7: Find the position of the first occurrence of the word
+position = content.find(search_word)
+
+# Step 8: Calculate percentage position if the word is found
+if position != -1:
+    total_length = len(content)
+    percent_position = (position / total_length) * 100
+    percent_str = str(round(percent_position, 1))  # round to 1 decimal place
+
+    # Step 9: Create the result message
+    result_message = "The word " + search_word + " was found " + percent_str + "% of the way through the file " + file_path
+
+    # Step 10: Print the result to the terminal
+    print("\n" + result_message)
+
+    # Step 11: Write the result to a file called "wordposition_results.txt"
+    with open("wordposition_results.txt", "w", encoding="utf-8") as output_file:
+        output_file.write(result_message)
+else:
+    # Step 12: If the word wasn't found, print and save a different message
+    not_found_message = "The word " + search_word + " was not found in the file " + file_path
+    print("\n" + not_found_message)
+    with open("wordposition_results.txt", "w", encoding="utf-8") as output_file:
+        output_file.write(not_found_message)
